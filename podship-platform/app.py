@@ -33,6 +33,5 @@ class PlatformTestComponent(firenado.tornadoweb.TornadoComponent):
         assets_path = os.path.join(os.path.dirname(__file__), 'assets')
         return [
             (r'/', handlers.IndexHandler),
-            (r'/assets/(.*)', tornado.web.StaticFileHandler,
-             {'path': assets_path}),
+            (r'/login', handlers.LoginHandler),
         ]

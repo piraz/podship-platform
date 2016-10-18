@@ -1,5 +1,5 @@
 app:
-  component: platform_test
+  component: platform
   data:
     sources:
         # Set here references from sources defined on data.sources
@@ -11,10 +11,10 @@ data:
 
 
 components:
-  - id: platform_test
-    class: podship.platform.app.PlatformTestComponent
+  - id: platform
+    class: podship-platform.app.PlatformTestComponent
     enabled: true
-  - id: assets
+  - id: static_maps
     enabled: true
   #- id: admin
   #  enabled: true
