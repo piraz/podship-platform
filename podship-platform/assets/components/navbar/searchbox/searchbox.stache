@@ -1,7 +1,7 @@
 <div id="searchComponent">
 <form class="navbar-form navbar-right" role="search">
     <div id="searchDropdown" class="btn-group" role="group">
-        <input type="text" id="searchQuery" data-toggle="dropdown" class="form-control dropdown-toggle" placeholder="Search">
+        <input type="text" id="searchQuery" data-toggle="dropdown" class="form-control dropdown-toggle" data-i18n="[placeholder]common.search;">
         <div class="dropdown-menu dropdown-menu-left dropdown-search" role="menu">
             <div class="list-group">
                 {{#hasResults}}

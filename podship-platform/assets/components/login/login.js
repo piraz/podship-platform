@@ -1,5 +1,5 @@
 /**
- * Copyright 2015-2016 Flavio Garcia
+ * Copyright 2015-2017 Flavio Garcia
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-steal("jquery", "can", "can/model", "can/view/stache", function($, can) {
-    var LoginModel = can.Model.extend({
+steal(
+    "jquery", "can", "can-component", "can/model/model",
+    "can/view/stache", function($, can, Component, Model) {
+    var LoginModel = Model.extend({
         create : "POST /user/login"
     },{});
 
-    can.Component.extend({
+    Component.extend({
         tag: "pod-login",
         template: can.view("/assets/components/login/login_form.stache"),
         viewModel:{
