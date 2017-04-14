@@ -73,7 +73,7 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script type="application/javascript">
             steal("jquery", function($){steal("./bootstrap")});
-            steal("./i18next", function(i18n){return i18n});
+            //steal("./i18next", function(i18n){return i18n});
             steal("components/navbar/searchbox").then(function(){
                 var searchBoxTemplate = "<nav-search-box></nav-search-box>";
                 $("#navbarSearchbox").html(can.stache(searchBoxTemplate)());
@@ -84,7 +84,9 @@
         {% block ejs %}{% end %}
         {% block page_js %}{% end %}
         <script type="application/javascript">
-            steal("./locale");
+            steal.done().then(function(){
+                steal("./locale");
+            });
         </script>
     </body>
 </html>

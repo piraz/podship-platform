@@ -27,3 +27,33 @@ class LoginHandler(firenado.tornadoweb.TornadoHandler):
 
     def get(self):
         self.render('login.html')
+
+class LocaleHandler(firenado.tornadoweb.TornadoHandler):
+    """ Returns the locale json to be used by the javascript """
+    def get(self, lang):
+        print(lang)
+        import tornado.locale
+        user_locale = tornado.locale.get("pt")
+        # TODO: Add to a service
+        locale = {
+            "app": {
+                "project": "diaspora*py"
+            },
+            "common": {
+                "password": user_locale.translate("Password"),
+                "username": "Username",
+                "create": "Create",
+                "add": "Add",
+                "remove": "Remove",
+                "delete": "Clear",
+                "cancel": "Cancel",
+                "save": "Save",
+                "email": "E-mail",
+                "search": "Search",
+                "login": "Login",
+                "register": "Register",
+                "logged": "Logged in as <a href='/login' class='navbar-link'>$t(common.username)</a>"
+            },
+            "layout": {}
+        }
+        self.write(locale)

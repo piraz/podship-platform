@@ -34,4 +34,5 @@ class PlatformTestComponent(firenado.tornadoweb.TornadoComponent):
         return [
             (r'/', handlers.IndexHandler),
             (r'/login', handlers.LoginHandler),
+            (r'/locales/([A-Za-z0-9-_]+).json?', handlers.LocaleHandler),
         ]
