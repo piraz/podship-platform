@@ -3,6 +3,9 @@ __pycache__
 
 database.sqlite
 
+# Yarn
+node_modules
+
 # Bower
 bower_components
 
