@@ -5,29 +5,59 @@ maps:
         handler: "/assets/(.*)"
         map_on_path: true
         name_on_path: false
+  - name: node_modules
+    handlers:
+      - name: "bootstrap"
+        handler: "/vendor/bootstrap/(.*)"
+        path: "dist"
+        map_on_path: true
+        name_on_path: true
+      - name: "i18next"
+        handler: "/vendor/i18next/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "i18next-xhr-backend"
+        handler: "/vendor/i18next-xhr-backend/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "jquery"
+        handler: "/vendor/jquery/(.*)"
+        path: "dist"
+        map_on_path: true
+        name_on_path: true
+      - name: "jquery-i18next"
+        handler: "/vendor/jquery-i18next/(.*)"
+        map_on_path: true
+        name_on_path: true
+      # Less must be mapped as dependency of steal-css
+      # yarn is getting the lib without reference
+      - name: "less"
+        handler: "/vendor/less/(.*)"
+        path: "dist"
+        map_on_path: true
+        name_on_path: true
+      - name: "steal"
+        handler: "/vendor/steal/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "steal-css"
+        handler: "/vendor/steal-css/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "steal-less"
+        handler: "/vendor/steal-less/(.*)"
+        map_on_path: true
+        name_on_path: true
   - name: bower_components
     #root: .
     handlers:
-    - name: "bootstrap"
-      handler: "/vendor/bootstrap/(.*)"
-      path: "dist"
-      map_on_path: true
-      name_on_path: true
-    - name: "canjs"
-      handler: "/vendor/canjs/(.*)"
-      path: "steal"
-      map_on_path: true
-      name_on_path: true
-    - name: "jquery"
-      handler: "/vendor/jquery/(.*)"
-      path: "dist"
-      map_on_path: true
-      name_on_path: true
-    - name: "i18next"
-      handler: "/vendor/i18next/(.*)"
-      map_on_path: true
-      name_on_path: true
-    - name: "steal"
-      handler: "/vendor/steal/(.*)"
-      map_on_path: true
-      name_on_path: true
+      - name: "canjs"
+        handler: "/vendor/canjs/(.*)"
+        path: "steal"
+        map_on_path: true
+        name_on_path: true
+
+
+
+
+
