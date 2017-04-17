@@ -12,6 +12,95 @@ maps:
         path: "dist"
         map_on_path: true
         name_on_path: true
+      - name: "can-cid"
+        handler: "/vendor/can-cid/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-component"
+        handler: "/vendor/can-component/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-compute"
+        handler: "/vendor/can-compute/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-connect"
+        handler: "/vendor/can-connect/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-construct"
+        handler: "/vendor/can-construct/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-control"
+        handler: "/vendor/can-control/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-event"
+        handler: "/vendor/can-event/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-fixture"
+        handler: "/vendor/can-fixture/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-namespace"
+        handler: "/vendor/can-namespace/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-observation"
+        handler: "/vendor/can-observation/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-set"
+        handler: "/vendor/can-set/(.*)"
+        path: "src"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-stache"
+        handler: "/vendor/can-stache/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-stache-bindings"
+        handler: "/vendor/can-stache-bindings/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-types"
+        handler: "/vendor/can-types/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-util"
+        handler: "/vendor/can-util/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-view-callbacks"
+        handler: "/vendor/can-view-callbacks/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-view-live"
+        handler: "/vendor/can-view-live/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-view-model"
+        handler: "/vendor/can-view-model/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-view-nodelist"
+        handler: "/vendor/can-view-nodelist/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-view-parser"
+        handler: "/vendor/can-view-parser/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-view-scope"
+        handler: "/vendor/can-view-scope/(.*)"
+        map_on_path: true
+        name_on_path: true
+      - name: "can-view-target"
+        handler: "/vendor/can-view-target/(.*)"
+        map_on_path: true
+        name_on_path: true
       - name: "i18next"
         handler: "/vendor/i18next/(.*)"
         map_on_path: true

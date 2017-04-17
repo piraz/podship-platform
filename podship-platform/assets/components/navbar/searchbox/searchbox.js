@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-steal("jquery", "can", "can/util/fixture", "can/event",
+steal("jquery", "can-fixture/fixture.js", "can-event",
     "components/navbar/searchbox/searchbox.stache",
-    function($, can, can_fixture, can_event, template) {
-    can.fixture({
+    function($, fixture, can_event, template) {
+    fixture({
         "POST /contact/search": function() {
             return "/assets/fixtures/search/results.json";
         }

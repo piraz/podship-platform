@@ -15,15 +15,15 @@
  */
 
 steal(
-    "jquery", "can", "can-component", "can/model/model",
-    "can/view/stache", function($, can, Component, Model) {
+    "jquery", "can-component", "can-stache",
+    function($, Component, Stache) {
     var LoginModel = Model.extend({
         create : "POST /user/login"
     },{});
 
     Component.extend({
         tag: "pod-login",
-        template: can.view("/assets/components/login/login_form.stache"),
+        template: Stache.from("/assets/components/login/login_form.stache"),
         viewModel:{
             error: false,
             errorMessage: '',
@@ -71,5 +71,5 @@ steal(
         }
     });
 
-    $("#podLogin").html(can.stache("<pod-login></pod-login>")());
+    $("#podLogin").html(Stache("<pod-login></pod-login>")());
 });
