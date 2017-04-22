@@ -74,18 +74,17 @@
             steal("jquery", function($){steal("bootstrap")});
             //steal("./i18next", function(i18n){return i18n});
             steal("components/navbar/searchbox").then(function(){
-                var searchBoxTemplate = "<nav-search-box></nav-search-box>";
-                $("#navbarSearchbox").html(can.stache(searchBoxTemplate)());
+                steal("can-stache", function(can_stache) {
+                    var searchBoxTemplate = "<nav-search-box></nav-search-box>";
+                    $("#navbarSearchbox").html(can_stache(searchBoxTemplate)());
+                });
+            }).then(function(){
+                steal("locale.js");
             });
         </script>
         {% block page_js_files %}{% end %}
 
         {% block ejs %}{% end %}
         {% block page_js %}{% end %}
-        <script type="application/javascript">
-            steal.done().then(function(){
-                steal("locale.js");
-            });
-        </script>
     </body>
 </html>
