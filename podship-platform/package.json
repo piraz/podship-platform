@@ -26,6 +26,14 @@
     "jquery-i18next": "1.2.0",
     "steal": "1.4.1",
     "steal-css": "1.2.2",
-    "steal-less": "1.2.0"
+    "steal-less": "1.2.0",
+    "steal-stache": "^3.0.5"
+  },
+  "steal": {
+    "plugins": [
+      "steal-css",
+      "steal-less",
+      "steal-stache"
+    ]
   }
 }

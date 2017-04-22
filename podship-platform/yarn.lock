@@ -1007,7 +1007,7 @@ steal-less@1.2.0:
     less "2.4.0 - 2.5.3"
     steal-css "^1.2.0"
 
-steal-stache@^3.0.0, steal-stache@^3.0.3:
+steal-stache@^3.0.0, steal-stache@^3.0.3, steal-stache@^3.0.5:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/steal-stache/-/steal-stache-3.0.5.tgz#5d607bf09a7dd82032ce0f7e07dba80702486394"
   dependencies:
