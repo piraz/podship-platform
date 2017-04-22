@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-steal("jquery", "can-fixture/fixture.js", "can-event",
+steal("jquery/dist/jquery.js", "can-fixture/fixture.js", "can-event",
     "components/navbar/searchbox/searchbox.stache",
     function($, fixture, can_event, template) {
     fixture({

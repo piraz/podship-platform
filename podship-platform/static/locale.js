@@ -1,4 +1,4 @@
-steal("jquery", "./i18next", "./jquery-i18next", "./i18next-xhr-backend", function($, i18next, jquery_i18next, i18n_xhr) {
+steal("jquery/dist/jquery.js", "i18next", "jquery-i18next", "i18next-xhr-backend/i18nextXHRBackend.js", function($, i18next, jquery_i18next, XHR) {
     $(function () {
         var option = {
             "fallbackLng": "en",
@@ -8,7 +8,7 @@ steal("jquery", "./i18next", "./jquery-i18next", "./i18next-xhr-backend", functi
                 "loadPath": "/locales/{{lng}}.json"
             }
         };
-        i18next.use(i18n_xhr).init(option, function (t) {
+        i18next.use(XHR).init(option, function (t) {
             jquery_i18next.init(i18next, $, {
               tName: 't', // --> appends $.t = i18next.t
               i18nName: 'i18n', // --> appends $.i18n = i18next

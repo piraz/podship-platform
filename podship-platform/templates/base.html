@@ -4,8 +4,7 @@
         <title>Podship Platform Test</title>
         {% block page_head %}{% end %}
 
-        <script src="/node_modules/steal/steal.js"
-                config="/assets/stealconfig.js"
+        <script src="/assets/node_modules/steal/steal.js"
                 main="{% block data_main %}{% end %}">
         </script>
 
@@ -16,8 +15,8 @@
         </script>
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="/node_modules/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/node_modules/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/assets/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="/static/css/diasporapy_pod.css">
 
         {% block page_css %}{% end %}
@@ -72,7 +71,7 @@
         </div>
         <!-- Placed at the end of the document so the pages load faster -->
         <script type="application/javascript">
-            steal("jquery", function($){steal("./bootstrap")});
+            steal("jquery/dist/jquery.js", function($){steal("bootstrap/dist/js/bootstrap.js")});
             //steal("./i18next", function(i18n){return i18n});
             steal("components/navbar/searchbox").then(function(){
                 var searchBoxTemplate = "<nav-search-box></nav-search-box>";
@@ -85,7 +84,7 @@
         {% block page_js %}{% end %}
         <script type="application/javascript">
             steal.done().then(function(){
-                steal("./locale");
+                steal("locale.js");
             });
         </script>
     </body>
