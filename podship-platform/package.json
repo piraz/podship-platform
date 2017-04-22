@@ -32,6 +32,7 @@
   },
   "steal": {
     "paths": {
+      "bootstrap/*": "/assets/node_modules/bootstrap/dist/js/*.js",
       "jquery": "/assets/node_modules/jquery/dist/jquery.js",
       "jquery/*": "/assets/node_modules/jquery/dist/*.js"
     },
