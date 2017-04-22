@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-steal("jquery", "can-fixture/fixture.js", "can-event",
-    "components/navbar/searchbox/searchbox.stache",
-    function($, fixture, can_event, template) {
+steal("jquery","can-component", "can-fixture/fixture.js", "can-event",
+    "./searchbox.stache",
+    function($, Component, fixture, can_event, template) {
     fixture({
         "POST /contact/search": function() {
             return "/assets/fixtures/search/results.json";
         }
     });
-
-    var SearchboxModel = can.Model.extend({
+    /*var SearchboxModel = can.Model.extend({
         findAll : "POST /contact/search"
-    },{});
+    },{});*/
 
-    can.Component.extend({
+    Component.extend({
         tag: "nav-search-box",
         template: template,
         viewModel:{
@@ -37,20 +36,20 @@ steal("jquery", "can-fixture/fixture.js", "can-event",
             hasResults: false,
             isLoading: true,
             search: function() {
-                SearchboxModel.findAll(
+                /*SearchboxModel.findAll(
                     {}, function( response ){
                         this.attr('hasResults', true);
                         this.attr('results', response[0].results);
                         this.attr('isLoading', false);
                     }.bind(this)
-                );
+                );*/
             }
         },
         events: {
 
             "#searchComponent focus": function(searchComponent, event) {
                 if($("#searchQuery").val().length > 2) {
-                    can.event.trigger($("#searchQuery"), "keyup");
+                    can_event.trigger($("#searchQuery"), "keyup");
                 }
                 steal.dev.log("Focused on the search Component!");
             },
