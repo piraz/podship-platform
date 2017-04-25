@@ -177,6 +177,17 @@ can-compute@^3.0.0, can-compute@^3.0.4, can-compute@^3.0.7:
     can-types "^1.0.1"
     can-util "^3.2.2"
 
+can-compute@^3.0.8:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/can-compute/-/can-compute-3.0.10.tgz#3fd1eca67919cabb7c21903c4b117c26423c4c47"
+  dependencies:
+    can-cid "^1.0.0"
+    can-event "^3.3.0"
+    can-namespace "1.0.0"
+    can-observation "^3.0.1"
+    can-types "^1.0.1"
+    can-util "^3.2.2"
+
 can-connect@^1.0.0, can-connect@^1.3.10:
   version "1.3.10"
   resolved "https://registry.yarnpkg.com/can-connect/-/can-connect-1.3.10.tgz#3fc4348c273f499539794288becbb70abc3ef92d"
@@ -286,6 +297,19 @@ can-map@^3.0.1, can-map@^3.0.3:
     can-compute "^3.0.0"
     can-construct "^3.0.0"
     can-event "^3.0.1"
+    can-namespace "^1.0.0"
+    can-observation "^3.0.1"
+    can-types "^1.0.1"
+    can-util "^3.2.2"
+
+can-map@^3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/can-map/-/can-map-3.0.7.tgz#53a8944ab839e4ea78682e37bc6ef95a6a399263"
+  dependencies:
+    can-cid "^1.0.0"
+    can-compute "^3.0.8"
+    can-construct "^3.0.0"
+    can-event "^3.3.0"
     can-namespace "^1.0.0"
     can-observation "^3.0.1"
     can-types "^1.0.1"
