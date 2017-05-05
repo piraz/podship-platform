@@ -1,7 +1,10 @@
 <div id="searchComponent">
 <form  id="searchDropdownForm" class="navbar-form navbar-right" role="search">
-    <div id="searchDropdown" class="btn-group" role="group">
+    <div id="searchDropdown" class="btn-group input-group" role="group">
         <input type="text" id="searchQuery" data-toggle="dropdown" class="form-control dropdown-toggle" autocomplete="off" data-i18n="[placeholder]common.search;">
+        <div class="input-group-btn">
+            <button id="searchQueryButton" class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
         <div id="searchDropdownMenu" class="dropdown-menu dropdown-menu-left dropdown-search" role="menu">
             <div class="list-group">
                 {{#searched}}
@@ -10,11 +13,11 @@
                         <h4 class="list-group-item-heading">Results</h4>
                         <p class="list-group-item-text">...</p>
                     </a>
-                    {{#each results}}
+                    {{#results}}
                         <a href="#" class="list-group-item">
-                            <img src="{{{img}}}"> {{{label}}}
+                            <img src="{{img}}"> {{label}}
                         </a>
-                    {{/each}}
+                    {{/results}}
                 {{/hasResults}}
                 {{^hasResults}}
                     <a href="#" class="list-group-item">

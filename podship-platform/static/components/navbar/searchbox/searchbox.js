@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-steal("can-jquery","can-component", "can-define/map", "can-define/list",
-    "can-event", "can-fixture/fixture.js", "can-set/src/set.js",
-    "./searchbox.stache",
-    function($, Component, DefineMap, DefineList, can_event, fixture, set,
-             template) {
+steal("can-jquery", "can-component", "can-connect", "can-connect/constructor",
+    "can-connect/data/url", "can-define/map", "can-define/list", "can-event",
+    "can-fixture/fixture.js", "can-set/src/set.js", "./searchbox.stache",
+    function($, Component, connect, constructor, dataUrl, DefineMap,
+             DefineList, can_event, fixture, set, template) {
     fixture({
-        "POST /contact/search": function() {
-            return "/assets/fixtures/search/results.json";
-        }
+        "GET /contact/search": "/assets/fixtures/search/results.json"
+    });
+
+    var searchConnection = connect([constructor, dataUrl], {
+        url: "/contact/search"
     });
 
     var SearchResult = DefineMap.extend({
@@ -34,64 +36,61 @@ steal("can-jquery","can-component", "can-define/map", "can-define/list",
     var SearchResultList = DefineList.extend({
         "#": SearchResult
     });
-    /*var SearchboxModel = can.Model.extend({
-        findAll : "POST /contact/search"
-    },{});*/
 
     var NavSearchViewModel = DefineMap.extend("NavSearchViewModel", {
         error: 'boolean',
-        retults: 'observable',
+        results: 'observable',
         hasResults: 'boolean',
         isLoading: 'boolean',
         previousValue: 'string',
-        searched: 'boolean',
-        showSearchDropdown: function (searchQuery, event) {
-            var previousValue = this.previousValue;
-            this.previousValue = searchQuery.val();
-            if(searchQuery.val().length > 0) {
-                searchQuery.parent().addClass("open");
-                if(previousValue != searchQuery.val()){
-                    this.isLoading = true;
-                    this.search();
-                    setTimeout(function() {
-                        this.searched = true;
-                        this.isLoading = false;
-                    }.bind(this), 500);
-                }
-                steal.dev.log("The search query size is bigger than 0." +
-                    "Showing the dropdwon.");
-            }
-            else{
-                this.searched = false;
-                searchQuery.parent().removeClass("open");
-                this.isLoading = false;
-                steal.dev.log("The search query size is smaller than 1. " +
-                    "Not showing the dropdwon.");
-            }
-        },
-        search: function () {
-            /*SearchboxModel.findAll(
-             {}, function( response ){
-             this.attr('hasResults', true);
-             this.attr('results', response[0].results);
-             this.attr('isLoading', false);
-             }.bind(this)
-             );*/
-        },
-        setLoading: function(loading){
-            this.isLoading = loading;
-        }
+        searched: 'boolean'
     });
+
     Component.extend({
         tag: "nav-search-box",
         view: template,
         ViewModel: NavSearchViewModel.extend({
             error: {value: false},
             hasResults: {value: false},
-            retults: {value: []},
+            results: {value: []},
             isLoading: {value: true},
             previousValue: {value: ""},
             searched: {value: false},
+            showSearchDropdown: function (searchQuery, event) {
+                var previousValue = this.previousValue;
+                this.previousValue = searchQuery.val();
+                if(searchQuery.val().length > 0) {
+                    searchQuery.parent().addClass("open");
+                    if(previousValue != searchQuery.val()) {
+                        if(!this.hasResults) {
+                            this.searched = false;
+                        }
+                        this.isLoading = true;
+                        this.search(searchQuery.val());
+                    }
+                    steal.dev.log("The search query size is bigger than 0." +
+                        "Showing the dropdwon.");
+                }
+                else{
+                    this.searched = false;
+                    searchQuery.parent().removeClass("open");
+                    this.isLoading = false;
+                    steal.dev.log("The search query size is smaller than 1. " +
+                        "Not showing the dropdwon.");
+                }
+            },
+            search: function (criteria) {
+                searchConnection.getList({criteria: criteria}).then(
+                    function(results){
+                        this.results = results;
+                        this.searched = true;
+                        this.isLoading = false;
+                        this.hasResults = true;
+                    }.bind(this));
+            },
+            setLoading: function(loading){
+                this.isLoading = loading;
+            }
         }),
         events: {
             "inserted": function(searchComponent, event) {
@@ -100,6 +99,11 @@ steal("can-jquery","can-component", "can-define/map", "can-define/list",
             "#searchComponent focus": function(searchComponent, event) {
                 steal.dev.log("Focused on the search Component!");
             },
+            "#searchQueryButton click": function() {
+                can_event.trigger.call($("#searchQuery")[0], "click");
+                steal.dev.log("Clicked on the search query button!");
+                return false;
+            },
             "#searchDropdownMenu click": function() {
                 can_event.trigger.call($("#searchQuery")[0], "click");
                 steal.dev.log("Clicked on the dropdown menu!");
@@ -107,7 +111,7 @@ steal("can-jquery","can-component", "can-define/map", "can-define/list",
             },
             "#searchQuery click": function(searchQuery, event, buga) {
                 can_event.trigger.call(searchQuery, "keyup");
-                steal.dev.log("Clicked on the dropdown menu!");
+                steal.dev.log("Clicked on the search query input!");
                 return false;
             },
             "#searchQuery keyup": function(searchQuery, event) {

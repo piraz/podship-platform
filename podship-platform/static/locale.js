@@ -2,7 +2,7 @@ steal("jquery/dist/jquery.js", "i18next", "jquery-i18next", "i18next-xhr-backend
     $(function () {
         var option = {
             "fallbackLng": "en",
-            "debug": true,
+            //"debug": true,
             "lng": "en",
             "backend": {
                 "loadPath": "/locales/{{lng}}.json"
