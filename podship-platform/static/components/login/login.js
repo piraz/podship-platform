@@ -14,59 +14,80 @@
  * limitations under the License.
  */
 
-steal(
-    "jquery", "can-component", "can-stache",
-    function($, Component, Stache) {
-    var LoginModel = Model.extend({
-        create : "POST /user/login"
-    },{});
+steal("can-jquery","can-component", "can-connect", "can-connect/constructor",
+    "can-connect/data/url", "can-define/map", "can-define/list", "can-deparam",
+    "can-event", "can-set/src/set.js", "can-stache", "./login_form.stache",
+    function($, Component, connect, constructor, dataUrl, DefineMap,
+             DefineList, can_deparam, can_event, set, Stache, template) {
+    // var LoginModel = Model.extend({
+    //     create : "POST /user/login"
+    // },{});
+    var loginConnection = connect([constructor, dataUrl], {
+        url: {
+            getData: "POST /login"
+        }
+    });
+
+    var LoginViewModel = DefineMap.extend("LoginViewModel", {
+        error: "boolean",
+        errorMessage: "string",
+        userNameError: "boolean",
+        passwordError: "boolean",
+        processLogin: function (login) {
+            window.location = login.next_url;
+        },
+        processLoginError: function (response) {
+            var errorMessage = '';
+            if (response.responseJSON.errors.hasOwnProperty('username')) {
+                this.attr('userNameError', true);
+            }
+            if (response.responseJSON.errors.hasOwnProperty('password')) {
+                this.attr('passwordError', true);
+            }
+            var errors = new can.Map(response.responseJSON.errors);
+            errors.each(
+                function (element, index, list) {
+                    if (!this.attr('error')) {
+                        this.attr('error', true);
+                    }
+                    errorMessage += element[0] + '<br>';
+                }.bind(this)
+            );
+            this.attr('errorMessage', errorMessage);
+        }
+    });
 
     Component.extend({
         tag: "pod-login",
-        template: Stache.from("/assets/components/login/login_form.stache"),
-        viewModel:{
-            error: false,
-            errorMessage: '',
-            userNameError: false,
-            passwordError: false,
-            login: new LoginModel(),
-            processLogin: function(login) {
-                window.location = login.next_url;
-            },
-            processLoginError: function(response) {
-                var errorMessage = '';
-                if(response.responseJSON.errors.hasOwnProperty('username')) {
-                    this.viewModel.attr('userNameError', true);
-                }
-                if(response.responseJSON.errors.hasOwnProperty('password')) {
-                    this.viewModel.attr('passwordError', true);
-                }
-                var errors = new can.Map(response.responseJSON.errors);
-                errors.each(
-                    function(element, index, list) {
-                        if(!this.viewModel.attr('error')){
-                            this.viewModel.attr('error', true);
-                        }
-                        errorMessage += element[0] + '<br>';
-                    }.bind(this)
-                );
-                this.viewModel.attr('errorMessage', errorMessage);
-            }
-        },
+        view: template,
+        ViewModel: LoginViewModel.extend({
+            error: {value: false},
+            errorMessage: {value: ""},
+            userNameError: {value: false},
+            passwordError: {value: false}
+        }),
         events: {
             "#login_button click": function() {
-                this.viewModel.attr('error', false);
-                this.viewModel.attr('errorMessage', '');
-                this.viewModel.attr('userNameError', false);
-                this.viewModel.attr('passwordError', false);
-                var form = this.element.find( 'form' );
-                var values = can.deparam(form.serialize());
+                this.viewModel.error = false;
+                this.viewModel.errorMessage = "";
+                this.viewModel.userNameError = false;
+                this.viewModel.passwordError = false;
+
+                var form = $(this.element).find("form");
+                var values = can_deparam(form.serialize());
                 var parameters = [];
                 //values._xsrf = getCookie('_xsrf');
-                this.viewModel.login.attr(values).save(
-                    this.viewModel.processLogin.bind(this),
-                    this.viewModel.processLoginError.bind(this)
-                );
+                loginConnection.get(values).then(function(response){
+                    console.debug(response);
+                }, function(reason){
+                    console.debug(reason);
+                    var data = $.parseJSON(reason.response)
+                    console.debug(data);
+                });
+                // this.viewModel.login.attr(values).save(
+                //     this.viewModel.processLogin.bind(this),
+                //     this.viewModel.processLoginError.bind(this)
+                // );
             }
         }
     });

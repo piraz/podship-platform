@@ -15,6 +15,22 @@
 # limitations under the License.
 
 import firenado.tornadoweb
+from tornado.escape import json_decode
+
+from wtforms.fields import StringField, PasswordField
+from wtforms.validators import DataRequired
+from wtforms_tornado import Form
+import wtforms_json
+
+wtforms_json.init()
+
+
+class LoginForm(Form):
+
+    username = StringField(validators=[DataRequired(
+        'The user name is required.')])
+    password = PasswordField(validators=[DataRequired(
+        'Password is required.')])
 
 
 class IndexHandler(firenado.tornadoweb.TornadoHandler):
@@ -27,6 +43,41 @@ class LoginHandler(firenado.tornadoweb.TornadoHandler):
 
     def get(self):
         self.render('login.html')
+
+    def post(self):
+        data = json_decode(self.request.body)
+        form = LoginForm.from_json(data)
+        error_data = {'errors': {}}
+        if form.validate():
+            is_valid_login = self.is_login_valid(form.data)
+            if is_valid_login['status'] == 200:
+                self.set_status(is_valid_login['status'])
+                response = {'status': is_valid_login['status']}
+                response['userid'] = is_valid_login['data']['userid']
+                response['next_url'] = ""
+                response['password'] = ""
+                self.write(response)
+            elif is_valid_login['status'] == 401:
+                self.set_status(is_valid_login['status'])
+                error_data['errors'] = is_valid_login['errors']
+                self.write(error_data)
+        else:
+            self.set_status(401)
+            error_data['errors'].update(form.errors)
+            self.write(error_data)
+
+    def is_login_valid(self, data):
+        result = {
+            'status': 401,
+            'data': {},
+            'errors': {}
+        }
+        if data['username'] == "user" and data['password'] == "pass":
+            result['status'] = 200
+            result['data'] =  {'userid': 1}
+        else:
+            result['errors']['form'] = "Invalid login data."
+        return result
 
 class LocaleHandler(firenado.tornadoweb.TornadoHandler):
     """ Returns the locale json to be used by the javascript """
